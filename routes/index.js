@@ -4,7 +4,8 @@ const os = require("node:os");
 const fs = require('fs');
 var router = express.Router();
 
-const pathToUpload = path.join(__dirname, "../public/file/");
+const fileFolderName = "file" 
+const pathToUpload = path.join(__dirname, `../public/${fileFolderName}/`);
 
 /* GET home page. */
 router.post('/upload', async function(req, res) {
@@ -14,10 +15,12 @@ router.post('/upload', async function(req, res) {
   
   try {
     // fs.readdirSync(pathToUpload);
-    const uploadedFile = await file.mv(pathToUpload+new Date().getTime()+"_"+file.name);
+    const filename = new Date().getTime()+"_"+file.name;
+    const uploadedFile = await file.mv(pathToUpload+filename);
     res.json({
       message: "File uploaded successfully.",
-      status: 200
+      status: 200,
+      fileUrl: `/${fileFolderName}/${filename}`
     }).status(200);
     
   } catch (error) {
