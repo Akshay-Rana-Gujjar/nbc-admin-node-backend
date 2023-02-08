@@ -7,6 +7,9 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 
+const {initMongo, closeMongo} = require("./database/connect");
+
+initMongo();
 
 var app = express();
 
@@ -22,6 +25,8 @@ app.use(fileupload({
 
 app.use('/api/v1/', indexRouter);
 
-
+process.on("beforeExit", ()=>{
+    closeMongo();
+})
 
 module.exports = app;
