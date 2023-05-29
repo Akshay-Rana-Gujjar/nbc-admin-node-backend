@@ -7,22 +7,15 @@ const getUserCollection = function(){
 }
 
 
-async function addUser(userData){
+function addUser(userData){
 
     if(!userData) throw "User data required.";
-
-    const db = getDB();
-
     return getUserCollection().insertOne(userData);
 
 }
 
-async function findUser(filter){
-
-    if(!filter) throw "Filter is required.";
-
+function findUser(filter = {}){
     return getUserCollection().find(filter).toArray();
-
 }
 
 

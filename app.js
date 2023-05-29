@@ -7,6 +7,9 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 
+
+const { esclient, checkConnection } = require("./elastic/connect");
+
 const {initMongo, closeMongo} = require("./database/connect");
 
 initMongo();
@@ -24,6 +27,8 @@ app.use(fileupload({
 }))
 
 app.use('/api/v1/', indexRouter);
+
+checkConnection();
 
 process.on("beforeExit", ()=>{
     closeMongo();

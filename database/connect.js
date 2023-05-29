@@ -12,7 +12,7 @@ async function initMongo() {
       // Establish and verify connection
       DB = client.db(DABATABASE_NAME);
       
-      console.log("Connected successfully to server");
+      console.log("Connected successfully to mongo server");
     }catch(err){
         throw err;
     }
